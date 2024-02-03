@@ -1,0 +1,76 @@
+#include <SoftwareSerial.h>
+SoftwareSerial BTSerial(2, 3); // RX | TX
+char z;
+void setup()
+{
+  Serial.begin(9600);
+  BTSerial.begin(9600);  // HC-05 default speed in AT command more
+  pinMode(4,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  digitalWrite(4,HIGH);
+  digitalWrite(5,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(7,HIGH);
+}
+void loop()
+{
+  BTSerial.flush();
+  //BTSerial.println("Enter AT commands:");
+  // Keep reading from HC-05 and send to Arduino Serial Monitor
+  if (BTSerial.available())
+  {
+    z= BTSerial.read();
+    Serial.println(z);
+delay(50);
+if(z=='a')
+{
+  z= BTSerial.read();
+   digitalWrite(4,HIGH);
+  digitalWrite(5,LOW);
+  digitalWrite(6,HIGH);
+  digitalWrite(7,HIGH);
+  delay(200);
+ 
+}
+if(z=='b')
+{
+ digitalWrite(4,LOW);
+  digitalWrite(5,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(7,HIGH);
+  delay(200);
+   
+}
+if(z=='c')
+{
+  digitalWrite(4,HIGH);
+  digitalWrite(5,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(7,LOW);
+  delay(200);
+   
+}
+if(z=='d')
+{
+  digitalWrite(4,HIGH);
+  digitalWrite(5,HIGH);
+  digitalWrite(6,LOW);
+  digitalWrite(7,HIGH);
+  delay(200);
+   
+}
+if(z=='s')
+{
+  digitalWrite(4,HIGH);
+  digitalWrite(5,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(7,HIGH);
+  delay(200);
+}
+
+
+  }
+  // Keep reading from Arduino Serial Monitor and send to HC-05
+}
